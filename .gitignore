@@ -1,0 +1,14 @@
+# Personal and course files (this repo is public)
+Resume*.docx
+*.pdf
+CLAUDE.md
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# macOS
+.DS_Store
