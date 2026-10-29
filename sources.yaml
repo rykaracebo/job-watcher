@@ -1,0 +1,18 @@
+# One entry per employer job board. All boards return JSON with no login.
+#
+# Workday fields:  host (tenant.wdN), tenant, site
+# Optional filters, applied server-side by Workday so the board fits its
+# 2,000-result window (paging past ~2,000 wraps back to page one):
+#   search: free-text search term
+#   state:  Workday "State" location facet value, e.g. Texas
+sources:
+  - {name: wells_fargo, employer: Wells Fargo,   ats: workday, host: wf.wd1,          tenant: wf,          site: WellsFargoJobs}
+  - {name: citi,        employer: Citi,          ats: workday, host: citi.wd5,        tenant: citi,        site: "2", state: Texas}
+  - {name: truist,      employer: Truist,        ats: workday, host: truist.wd1,      tenant: truist,      site: Careers}
+  - {name: capital_one, employer: Capital One,   ats: workday, host: capitalone.wd12, tenant: capitalone,   site: Capital_One}
+  - {name: td,          employer: TD,            ats: workday, host: td.wd3,          tenant: td,          site: TD_Bank_Careers}
+  - {name: santander,   employer: Santander,     ats: workday, host: santander.wd3,   tenant: santander,   site: SantanderCareers}
+  - {name: fidelity,    employer: Fidelity,      ats: workday, host: fmr.wd1,         tenant: fmr,         site: FidelityCareers}
+  - {name: blackstone,  employer: Blackstone,    ats: workday, host: blackstone.wd1,  tenant: blackstone,  site: Blackstone_Careers}
+  - {name: jll,         employer: JLL,           ats: workday, host: jll.wd1,         tenant: jll,         site: jllcareers, search: analyst}
+  - {name: att,         employer: AT&T,          ats: workday, host: att.wd1,         tenant: att,         site: ATTGeneral}
