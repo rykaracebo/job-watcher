@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse · Job Watcher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Browse open postings</h1>
+    <p class="sub" id="asof">Loading…</p>
+
+    <section class="filters">
+      <div>
+        <label>Show</label>
+        <div class="switch" id="roleSwitch">
+          <button data-role="1" class="on">In my role</button>
+          <button data-role="0">All postings</button>
+        </div>
+      </div>
+      <div>
+        <label for="q">Search titles</label>
+        <input type="search" id="q" placeholder="e.g. credit, underwriter">
+      </div>
+      <div>
+        <label for="employer">Employer</label>
+        <select id="employer"><option value="">All employers</option></select>
+      </div>
+      <div>
+        <label for="loc">Location contains</label>
+        <input type="text" id="loc" placeholder="e.g. Plano">
+        <div class="quick" id="quickLoc">
+          <button data-loc="dfw">Dallas–Fort Worth</button>
+          <button data-loc="tx">Texas</button>
+          <button data-loc="" class="on">Anywhere</button>
+        </div>
+      </div>
+      <div>
+        <label for="days">Days open</label>
+        <select id="days">
+          <option value="">Any</option>
+          <option value="7">7 days or fewer</option>
+          <option value="14">14 days or fewer</option>
+          <option value="30">30 days or fewer</option>
+        </select>
+      </div>
+      <div>
+        <label for="sort">Sort by first seen</label>
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="summary">
+      <span id="count"></span>
+      <label class="checkline"><input type="checkbox" id="starredOnly"> Shortlist only (<span id="starCount">0</span>)</label>
+    </div>
+
+    <div id="list"></div>
+    <button class="more" id="more" hidden>Show more</button>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="csv.js"></script>
+  <script src="browse.js"></script>
+</body>
+</html>
