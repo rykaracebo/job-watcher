@@ -47,5 +47,12 @@ def test_workday_keeps_postings_outside_the_role():
     assert "Roving Personal Banker" in titles
 
 
+def test_workday_posting_without_title_is_kept_with_empty_title():
+    raw = {"jobPostings": [{"externalPath": "/job/X/Mystery_R-1"}]}
+    rows = normalize(WF, raw)
+    assert len(rows) == 1
+    assert rows[0]["title"] == "" and rows[0]["location"] == ""
+
+
 def test_workday_empty_board():
     assert normalize(WF, {"total": 0, "jobPostings": []}) == []

@@ -32,7 +32,7 @@ def normalize_workday(source, raw):
         path = p["externalPath"]
         source_id = path.rsplit("/", 1)[-1].rsplit("_", 1)[-1]
         url = f"https://{source['host']}.myworkdayjobs.com/{source['site']}{path}"
-        rows.append(_row(source, source_id, source["employer"], p["title"],
+        rows.append(_row(source, source_id, source["employer"], p.get("title", ""),
                          location=p.get("locationsText", ""), url=url))
     return rows
 
