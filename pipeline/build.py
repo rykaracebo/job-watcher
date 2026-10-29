@@ -25,8 +25,9 @@ HISTORY_COLUMNS = [
 def raw_files(raw_dir):
     """Yield (date, source_name, path) in date order, then source order."""
     raw_dir = Path(raw_dir)
+    days = sorted(raw_dir.iterdir()) if raw_dir.is_dir() else []
     found = [(day.name, f.name[:-len(".json.gz")], f)
-             for day in raw_dir.iterdir() if day.is_dir()
+             for day in days if day.is_dir()
              for f in day.glob("*.json.gz")]
     return sorted(found, key=lambda t: (t[0], t[1]))
 
