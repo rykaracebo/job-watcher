@@ -1,60 +1,60 @@
 {
-  "run_time": "2026-11-01T17:07:46Z",
+  "run_time": "2026-11-02T20:46:19Z",
   "first_run_date": "2026-10-29",
-  "days_with_success": 4,
-  "open": 9973,
-  "new_today": 7,
-  "removed_today": 122,
+  "days_with_success": 5,
+  "open": 9997,
+  "new_today": 445,
+  "removed_today": 526,
   "sources": [
     {
       "name": "wells_fargo",
       "ok": true,
-      "count": 1484
+      "count": 1445
     },
     {
       "name": "citi",
       "ok": true,
-      "count": 239
+      "count": 238
     },
     {
       "name": "truist",
       "ok": true,
-      "count": 1474
+      "count": 1468
     },
     {
       "name": "capital_one",
       "ok": true,
-      "count": 2040
+      "count": 2034
     },
     {
       "name": "td",
       "ok": true,
-      "count": 1520
+      "count": 1586
     },
     {
       "name": "santander",
       "ok": true,
-      "count": 962
+      "count": 940
     },
     {
       "name": "fidelity",
       "ok": true,
-      "count": 804
+      "count": 825
     },
     {
       "name": "blackstone",
       "ok": true,
-      "count": 133
+      "count": 131
     },
     {
       "name": "jll",
       "ok": true,
-      "count": 210
+      "count": 215
     },
     {
       "name": "att",
       "ok": true,
-      "count": 1107
+      "count": 1115
     }
   ]
 }
