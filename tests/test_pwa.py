@@ -5,9 +5,7 @@ import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "browse.html"]            # market.html is added to this when it exists
-if (ROOT / "market.html").exists():
-    PAGES.append("market.html")
+PAGES = ["index.html", "browse.html", "market.html"]
 
 
 def png_size(path):
@@ -53,9 +51,9 @@ def test_service_worker_precaches_files_that_exist():
     shell = re.search(r"const SHELL = \[(.*?)\];", sw, re.S).group(1)
     files = re.findall(r'"([^"]+)"', shell)
     missing = [f for f in files if f != "./" and not (ROOT / f).exists()]
-    # Only pages still to be built may be missing; the worker tolerates those.
-    assert set(missing) <= {"market.html", "market.js"}, missing
-    for needed in ["index.html", "browse.html", "data/history.csv", "data/status.json"]:
+    assert not missing, missing
+    for needed in ["index.html", "browse.html", "market.html", "market-calc.js",
+                   "data/history.csv", "data/status.json"]:
         assert needed in files
 
 

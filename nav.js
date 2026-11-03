@@ -2,6 +2,7 @@
 const PAGES = [
   { href: "index.html", label: "Today" },
   { href: "browse.html", label: "Browse" },
+  { href: "market.html", label: "Market" },
 ];
 
 (function () {

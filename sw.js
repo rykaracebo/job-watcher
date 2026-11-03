@@ -4,11 +4,11 @@
 // files are always current. Each good response is saved. Offline, the saved
 // copy is served, so the site opens and shows the last data it loaded.
 // Bump VERSION when the list of files below changes.
-const VERSION = "v1";
+const VERSION = "v2";
 const CACHE = `job-watcher-${VERSION}`;
 const SHELL = [
   "./", "index.html", "browse.html", "market.html",
-  "style.css", "nav.js", "csv.js", "dedupe.js", "index.js", "browse.js", "market.js",
+  "style.css", "nav.js", "csv.js", "dedupe.js", "market-calc.js", "index.js", "browse.js", "market.js",
   "manifest.json", "icons/icon-192.png", "icons/icon-512.png",
   "data/history.csv", "data/status.json",
 ];

@@ -142,10 +142,19 @@ build.
 | `pipeline/status.py` | Builds `data/status.json` |
 | `pipeline/run.py` | One daily run: fetch, build, status |
 | `pipeline/issue.py` | Opens the day's GitHub Issue (new and removed postings) and closes the previous one |
-| `tests/` | pytest suite: normalizers, title rule, history logic, fetcher, status |
+| `tests/` | pytest suite: normalizers, title rule, history logic, fetcher, status, issues, sources, site code, Market numbers |
 | `data/raw/<date>/<source>.json.gz` | What each source returned that day |
 | `data/history.csv` | One row per posting ever seen |
 | `data/status.json` | Result of the latest run |
+| `index.html`, `index.js` | Today page: last run, source status, counts, new and removed postings |
+| `browse.html`, `browse.js` | Browse page: role switch, filters, search, sort, apply links, shortlist stars |
+| `dedupe.js` | Shows a posting once on Browse when a `_tx` source also lists it |
+| `market.html`, `market.js` | Market page: six sections with charts, drawn in the browser |
+| `market-calc.js` | Every Market number, computed from `history.csv` (tested against an independent implementation) |
+| `csv.js`, `nav.js`, `style.css` | CSV parser, the shared navigation bar, and the shared fonts and colors |
+| `manifest.json`, `icons/` | Web app manifest and app icons, so the site installs as an app |
+| `sw.js` | Service worker: pages and data load from the network, and the last copy is shown offline |
+| `scripts/make_icons.py` | Draws the app icons |
 | `.github/workflows/daily.yml` | Daily scheduled run, commits the data |
 | `.github/workflows/tests.yml` | Runs pytest on every push |
 
