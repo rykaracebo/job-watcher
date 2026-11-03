@@ -20,16 +20,24 @@ HEADERS = {
 }
 
 
-def _post(session, url, body):
+def _request(send, *args, **kwargs):
     for attempt in range(RETRIES):
         try:
-            r = session.post(url, json=body, headers=HEADERS, timeout=30)
+            r = send(*args, headers=HEADERS, timeout=30, **kwargs)
             r.raise_for_status()
             return r.json()
         except (requests.RequestException, ValueError):
             if attempt == RETRIES - 1:
                 raise
             time.sleep(2 ** attempt)
+
+
+def _post(session, url, body):
+    return _request(session.post, url, json=body)
+
+
+def _get(session, url, params=None):
+    return _request(session.get, url, params=params)
 
 
 STATE_FACETS = {"locationRegionStateProvince", "State_or_Province"}
@@ -88,7 +96,75 @@ def fetch_workday(source, session):
     return {"total": total, "jobPostings": postings}
 
 
-FETCHERS = {"workday": fetch_workday}
+ORACLE_PAGE = 200       # Oracle accepts up to 200 per page
+
+
+def fetch_oracle(source, session):
+    """Oracle Recruiting Cloud (HCM) candidate-experience REST API.
+
+    The optional search term goes into the finder string, so it cannot
+    contain a comma.
+    """
+    url = f"https://{source['host']}/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    keyword = source.get("search", "")
+    postings, seen, total = [], set(), None
+    for page in range(MAX_PAGES):
+        finder = (f"findReqs;siteNumber={source['site']},limit={ORACLE_PAGE},"
+                  f"offset={page * ORACLE_PAGE},keyword={keyword},"
+                  "sortBy=POSTING_DATES_DESC")
+        item = _get(session, url, {"onlyData": "true", "finder": finder})["items"][0]
+        total = item.get("TotalJobsCount", total)
+        new = [p for p in item.get("requisitionList", []) if p["Id"] not in seen]
+        if not new:
+            break
+        seen.update(p["Id"] for p in new)
+        postings.extend(new)
+    return {"total": total, "jobPostings": postings}
+
+
+def fetch_greenhouse(source, session):
+    """Greenhouse job board API: one request returns every posting."""
+    url = f"https://boards-api.greenhouse.io/v1/boards/{source['token']}/jobs"
+    jobs = _get(session, url)["jobs"]
+    return {"total": len(jobs), "jobPostings": jobs}
+
+
+GOLDMAN_URL = "https://api-higher.gs.com/gateway/api/v1/graphql"
+GOLDMAN_PAGE = 100
+GOLDMAN_QUERY = """query GetRoles($searchQueryInput: RoleSearchQueryInput!) {
+  roleSearch(searchQueryInput: $searchQueryInput) {
+    totalCount
+    items { roleId jobTitle division locations { city state country }
+            externalSource { sourceId } }
+  }
+}"""
+
+
+def fetch_goldman(source, session):
+    """Goldman Sachs' careers site (higher.gs.com) GraphQL API."""
+    postings, seen, total = [], set(), None
+    for page in range(MAX_PAGES):
+        body = {"operationName": "GetRoles", "query": GOLDMAN_QUERY, "variables": {
+            "searchQueryInput": {
+                "page": {"pageSize": GOLDMAN_PAGE, "pageNumber": page},
+                "sort": {"sortStrategy": "RELEVANCE", "sortOrder": "DESC"},
+                "filters": [], "searchTerm": source.get("search", ""),
+                "experiences": ["PROFESSIONAL", "EARLY_CAREER", "CAMPUS"]}}}
+        data = _post(session, GOLDMAN_URL, body)
+        if data.get("errors"):
+            raise ValueError(data["errors"][0]["message"])
+        result = data["data"]["roleSearch"]
+        total = result.get("totalCount", total)
+        new = [p for p in result["items"] if p["roleId"] not in seen]
+        if not new:
+            break
+        seen.update(p["roleId"] for p in new)
+        postings.extend(new)
+    return {"total": total, "jobPostings": postings}
+
+
+FETCHERS = {"workday": fetch_workday, "oracle": fetch_oracle,
+            "greenhouse": fetch_greenhouse, "goldman": fetch_goldman}
 
 
 def write_raw(raw_dir, date, name, data):
