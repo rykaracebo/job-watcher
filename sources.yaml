@@ -1,10 +1,14 @@
 # One entry per employer job board. All boards return JSON with no login.
 #
+# ats: workday | oracle | greenhouse | goldman (Goldman's own careers API)
+#
 # Workday fields:  host (tenant.wdN), tenant, site
 # Optional filters, applied server-side by Workday so the board fits its
 # 2,000-result window (paging past ~2,000 wraps back to page one):
 #   search: free-text search term
 #   state:  Workday "State" location facet value, e.g. Texas
+# Oracle fields:   host, site, optional search (no commas)
+# Greenhouse:      token (the board token)
 sources:
   - {name: wells_fargo, employer: Wells Fargo,   ats: workday, host: wf.wd1,          tenant: wf,          site: WellsFargoJobs}
   - {name: citi,        employer: Citi,          ats: workday, host: citi.wd5,        tenant: citi,        site: "2", state: Texas}
@@ -16,3 +20,12 @@ sources:
   - {name: blackstone,  employer: Blackstone,    ats: workday, host: blackstone.wd1,  tenant: blackstone,  site: Blackstone_Careers}
   - {name: jll,         employer: JLL,           ats: workday, host: jll.wd1,         tenant: jll,         site: jllcareers, search: analyst}
   - {name: att,         employer: AT&T,          ats: workday, host: att.wd1,         tenant: att,         site: ATTGeneral}
+  - {name: bofa,          employer: Bank of America, ats: workday,    host: ghr.wd1,          tenant: ghr,              site: lateral-us, search: analyst}
+  - {name: fifth_third,   employer: Fifth Third,     ats: workday,    host: fifththird.wd5,   tenant: fifththird,       site: 53careers}
+  - {name: texas_capital, employer: Texas Capital Bank, ats: workday, host: texascapitalbank.wd12, tenant: texascapitalbank, site: Careers}
+  - {name: frost,         employer: Frost Bank,      ats: workday,    host: frostbank.wd5,    tenant: frostbank,        site: External}
+  - {name: raymond_james, employer: Raymond James,   ats: workday,    host: raymondjames.wd1, tenant: raymondjames,     site: RaymondJamesCareers}
+  - {name: jpmorgan,      employer: JPMorgan Chase,  ats: oracle,     host: jpmc.fa.oraclecloud.com, site: CX_1001, search: analyst}
+  - {name: gm_financial,  employer: GM Financial,    ats: oracle,     host: fa-exvu-saasfaprod1.fa.ocs.oraclecloud.com, site: CX_1}
+  - {name: kkr,           employer: KKR,             ats: greenhouse, token: stage}
+  - {name: goldman,       employer: Goldman Sachs,   ats: goldman}

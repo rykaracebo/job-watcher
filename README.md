@@ -34,7 +34,9 @@ Running it twice produces the same file.
 
 ## Sources
 
-All sources use Workday's public JSON endpoint.
+Every source returns JSON to a request with no login. Four applicant tracking
+systems are used: Workday, Oracle Recruiting Cloud, Greenhouse, and Goldman
+Sachs' own careers API (a GraphQL endpoint behind higher.gs.com).
 
 | Source | Employer | ATS | Notes |
 |---|---|---|---|
@@ -48,11 +50,22 @@ All sources use Workday's public JSON endpoint.
 | blackstone | Blackstone | Workday | |
 | jll | JLL | Workday | Search term: `analyst` |
 | att | AT&T | Workday | |
+| bofa | Bank of America | Workday | Search term: `analyst` |
+| fifth_third | Fifth Third (absorbed Comerica) | Workday | |
+| texas_capital | Texas Capital Bank | Workday | |
+| frost | Frost Bank | Workday | |
+| raymond_james | Raymond James | Workday | |
+| jpmorgan | JPMorgan Chase | Oracle Recruiting Cloud | Search term: `analyst` (7,000+ postings) |
+| gm_financial | GM Financial | Oracle Recruiting Cloud | |
+| kkr | KKR | Greenhouse | Board token `stage` |
+| goldman | Goldman Sachs | Goldman careers API | |
 
-Workday returns at most 2,000 postings for one query and wraps back to the
-first page past that. Boards bigger than that are narrowed server-side: JLL
-uses the search term **`analyst`**, and Citi uses Workday's State filter set to
-**Texas**. Both are set in `sources.yaml`.
+Boards with more than 5,000 postings must be requested with a search term:
+JPMorgan (7,110 postings) uses **`analyst`**. Workday also returns at most
+2,000 postings for one query and wraps back to the first page past that, so
+large Workday boards are narrowed server-side too: JLL and Bank of America use
+the search term **`analyst`**, and Citi uses Workday's State filter set to
+**Texas**. All of this is set in `sources.yaml`.
 
 ## Title rule (`in_role`)
 
@@ -77,7 +90,7 @@ it is in role; `in_role` is just a column.
 | Path | What it does |
 |---|---|
 | `sources.yaml` | The employers and how to reach each job board |
-| `pipeline/fetch.py` | Calls each source and saves the raw JSON |
+| `pipeline/fetch.py` | Calls each source (one fetcher per ATS) and saves the raw JSON |
 | `pipeline/normalize.py` | Converts each ATS's postings to the common columns |
 | `pipeline/title_rule.py` | The `in_role` title rule |
 | `pipeline/build.py` | Builds `data/history.csv` from the raw files |
