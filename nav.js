@@ -21,3 +21,8 @@ const PAGES = [
   }
   document.body.prepend(nav);
 })();
+
+// Register the service worker (installable app, offline use). Pages work without it.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
