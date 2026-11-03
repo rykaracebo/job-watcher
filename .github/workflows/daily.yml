@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write              # commit the data files
-  issues: write                # daily issue (added in a later commit)
+  issues: write                # open today's issue, close yesterday's
 
 concurrency:
   group: daily-run
@@ -38,3 +38,8 @@ jobs:
             git pull --rebase
             git push
           fi
+      # After the commit, so a problem with the issue never loses the data.
+      - name: Open today's issue, close the previous one
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m pipeline.issue

@@ -19,6 +19,9 @@ Dallas-Fort Worth.
    rule applies to every day of history.
 4. `data/status.json` describes the latest run.
 5. The data files are committed to the repository.
+6. `python -m pipeline.issue` opens an Issue titled with the date that lists
+   the new and removed postings, and closes the previous day's issue. A second
+   run on the same day updates that day's issue.
 
 ## Rebuild the history from the raw files
 
@@ -80,6 +83,7 @@ it is in role; `in_role` is just a column.
 | `pipeline/build.py` | Builds `data/history.csv` from the raw files |
 | `pipeline/status.py` | Builds `data/status.json` |
 | `pipeline/run.py` | One daily run: fetch, build, status |
+| `pipeline/issue.py` | Opens the day's GitHub Issue (new and removed postings) and closes the previous one |
 | `tests/` | pytest suite: normalizers, title rule, history logic, fetcher, status |
 | `data/raw/<date>/<source>.json.gz` | What each source returned that day |
 | `data/history.csv` | One row per posting ever seen |
