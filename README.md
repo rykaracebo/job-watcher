@@ -59,6 +59,38 @@ Sachs' own careers API (a GraphQL endpoint behind higher.gs.com).
 | gm_financial | GM Financial | Oracle Recruiting Cloud | |
 | kkr | KKR | Greenhouse | Board token `stage` |
 | goldman | Goldman Sachs | Goldman careers API | |
+| wells_fargo_tx | Wells Fargo | Workday | Texas copy of `wells_fargo` (see below) |
+| truist_tx | Truist | Workday | Texas copy of `truist` |
+| fidelity_tx | Fidelity | Workday | Texas copy of `fidelity` |
+| santander_tx | Santander | Workday | Texas copy of `santander` |
+
+### Texas-only sources (`_tx`) overlap with their national boards
+
+`wells_fargo_tx`, `truist_tx`, `fidelity_tx`, and `santander_tx` query the same
+Workday board as `wells_fargo`, `truist`, `fidelity`, and `santander` with
+Workday's State filter set to **Texas**. The national sources are unchanged and
+still keep every posting the board returns. The `_tx` sources exist because
+Workday lists a posting with several locations only as "N Locations", which
+hides Dallas postings; the Texas filter shows which postings have a Texas
+location. The filtered list still says "N Locations", so it tells us that a
+posting is in Texas, not which city.
+
+Because they query the same boards, the same posting appears twice in
+`history.csv`: as `wells_fargo:R-123` and as `wells_fargo_tx:R-123`, with the
+same employer and the same source ID. Everything is counted by source, as the
+assignment defines it, so:
+
+- `open` in `status.json`, "open postings per employer", and "top locations"
+  count a Texas posting once under each source.
+- "New postings per day" is not inflated on the day a `_tx` source first runs,
+  because a source's first raw file is marked `first_run` and left out of the
+  new-posting counts.
+- The Browse page shows each posting once (de-duplicated by employer and source
+  ID), keeps the earliest first-seen date, and treats a posting that has a
+  `_tx` copy as being in Texas.
+- The Market page marks the day each source first appears, so the jump in open
+  postings is not read as real market activity. The `_tx` sources first ran on
+  2026-11-04.
 
 Boards with more than 5,000 postings must be requested with a search term:
 JPMorgan (7,110 postings) uses **`analyst`**. Workday also returns at most
