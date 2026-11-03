@@ -111,6 +111,7 @@ def test_oracle_pages_through_every_posting_with_the_search_term():
     assert len(data["jobPostings"]) == 450 and data["total"] == 450
     assert "keyword=analyst" in session.calls[0]["params"]["finder"]
     assert "siteNumber=CX_1" in session.calls[0]["params"]["finder"]
+    assert session.calls[0]["params"]["expand"] == "requisitionList"   # else no postings
 
 
 def test_oracle_empty_board():

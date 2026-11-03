@@ -26,14 +26,18 @@ def normalize_workday(source, raw):
 
     postedOn is relative text ("Posted Today"), not a date, so posted_date
     stays empty. Multi-location postings only say "N Locations" in the list.
+    Some tenants (Raymond James) omit locationsText and put the location in
+    bulletFields next to the requisition id, so the first other bullet is used.
     """
     rows = []
     for p in raw.get("jobPostings", []):
         path = p["externalPath"]
         source_id = path.rsplit("/", 1)[-1].rsplit("_", 1)[-1]
         url = f"https://{source['host']}.myworkdayjobs.com/{source['site']}{path}"
+        location = p.get("locationsText") or next(
+            (b for b in p.get("bulletFields", []) if b != source_id), "")
         rows.append(_row(source, source_id, source["employer"], p.get("title", ""),
-                         location=p.get("locationsText", ""), url=url))
+                         location=location, url=url))
     return rows
 
 

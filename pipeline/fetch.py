@@ -112,7 +112,8 @@ def fetch_oracle(source, session):
         finder = (f"findReqs;siteNumber={source['site']},limit={ORACLE_PAGE},"
                   f"offset={page * ORACLE_PAGE},keyword={keyword},"
                   "sortBy=POSTING_DATES_DESC")
-        item = _get(session, url, {"onlyData": "true", "finder": finder})["items"][0]
+        item = _get(session, url, {"onlyData": "true", "expand": "requisitionList",
+                                  "finder": finder})["items"][0]
         total = item.get("TotalJobsCount", total)
         new = [p for p in item.get("requisitionList", []) if p["Id"] not in seen]
         if not new:

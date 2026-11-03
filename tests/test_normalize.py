@@ -128,3 +128,17 @@ def test_goldman_posting_with_no_locations():
     rows = normalize(GS, {"jobPostings": [{"roleId": "9_GS", "jobTitle": "T",
                                            "locations": [], "externalSource": None}]})
     assert rows[0]["location"] == "" and rows[0]["url"].endswith("/roles/9_GS")
+
+
+def test_workday_location_falls_back_to_bullet_fields():
+    raw = {"jobPostings": [{
+        "title": "Financial Analyst",
+        "externalPath": "/job/Saint-Petersburg/Financial-Analyst_R-0013339",
+        "bulletFields": ["Saint Petersburg, Florida - United States", "R-0013339"]}]}
+    assert normalize(WF, raw)[0]["location"] == "Saint Petersburg, Florida - United States"
+
+
+def test_workday_requisition_id_alone_is_not_a_location():
+    raw = {"jobPostings": [{"title": "X", "externalPath": "/job/A/X_R-1",
+                            "bulletFields": ["R-1"]}]}
+    assert normalize(WF, raw)[0]["location"] == ""
