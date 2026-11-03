@@ -29,14 +29,14 @@ const daysOpen = r => Math.max(0, dayNumber(lastRun) - dayNumber(r.first_seen));
 
 function matches(r) {
   if (state.inRole && r.in_role !== "true") return false;
-  if ($("starredOnly").checked && !stars.has(r.posting_id)) return false;
+  if ($("starredOnly").checked && !isShortlisted(r, stars)) return false;
   const q = $("q").value.trim().toLowerCase();
   if (q && !r.title.toLowerCase().includes(q)) return false;
   if ($("employer").value && r.employer !== $("employer").value) return false;
   const loc = $("loc").value.trim().toLowerCase();
   if (loc && !r.location.toLowerCase().includes(loc)) return false;
   if (state.quick === "dfw" && !isDFW(r.location)) return false;
-  if (state.quick === "tx" && !isTexas(r.location)) return false;
+  if (state.quick === "tx" && !isTexas(r.location) && !r.in_texas) return false;
   const maxDays = $("days").value;
   if (maxDays && daysOpen(r) > Number(maxDays)) return false;
   return true;
@@ -69,11 +69,12 @@ function el(tag, cls, text) {
 function card(r) {
   const box = el("div", "posting");
 
-  const star = el("button", "star" + (stars.has(r.posting_id) ? " on" : ""), "★");
+  const starred = isShortlisted(r, stars);
+  const star = el("button", "star" + (starred ? " on" : ""), "★");
   star.title = "Save to shortlist";
-  star.setAttribute("aria-pressed", stars.has(r.posting_id));
+  star.setAttribute("aria-pressed", starred);
   star.onclick = () => {
-    stars.has(r.posting_id) ? stars.delete(r.posting_id) : stars.add(r.posting_id);
+    toggleShortlist(r, stars);
     saveStars();
     render();
   };
@@ -81,8 +82,11 @@ function card(r) {
   const body = el("div");
   body.append(el("div", "title", r.title || "(no title)"));
   const d = daysOpen(r);
+  // "5 Locations" hides the cities; a _tx copy still tells us one of them is in Texas.
+  const where = (r.location || "Location not listed") +
+    (r.in_texas && !isTexas(r.location) ? " (includes Texas)" : "");
   body.append(el("div", "meta",
-    `${r.employer} · ${r.location || "Location not listed"} · first seen ${r.first_seen}` +
+    `${r.employer} · ${where} · first seen ${r.first_seen}` +
     ` · ${d} day${d === 1 ? "" : "s"} open`));
 
   box.append(star, body);
@@ -122,11 +126,11 @@ async function load() {
       fetch("data/history.csv", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }),
       fetch("data/status.json", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }),
     ]);
-    rows = parseCSV(csv).filter(r => r.status === "open");
+    rows = dedupePostings(parseCSV(csv).filter(r => r.status === "open"));
     lastRun = status.run_time.slice(0, 10);
     const failed = status.sources.filter(s => !s.ok).length;
     $("asof").textContent = `Last run ${status.run_time.replace("T", " ").replace("Z", " UTC")} · ` +
-      `${status.open.toLocaleString()} open postings` + (failed ? ` · ${failed} source(s) failed` : "");
+      `${rows.length.toLocaleString()} unique open postings` + (failed ? ` · ${failed} source(s) failed` : "");
 
     const employers = [...new Set(rows.map(r => r.employer))].sort();
     for (const name of employers) $("employer").append(new Option(name, name));
