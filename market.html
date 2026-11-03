@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market · Job Watcher</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#14284b">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+  <main>
+    <h1>Market</h1>
+    <p class="sub" id="asof">Loading…</p>
+    <div class="callout" id="timeline" hidden></div>
+
+    <section class="viz-card" id="s1">
+      <h2 id="h1"></h2>
+      <p id="p1"></p>
+      <div class="panels" id="c1"></div>
+    </section>
+
+    <section class="viz-card" id="s2">
+      <h2 id="h2"></h2>
+      <p id="p2"></p>
+      <div id="c2"></div>
+    </section>
+
+    <section class="viz-card" id="s3">
+      <h2 id="h3"></h2>
+      <p id="p3"></p>
+      <div id="c3"></div>
+    </section>
+
+    <section class="viz-card" id="s4">
+      <h2 id="h4"></h2>
+      <p id="p4"></p>
+      <div id="c4"></div>
+    </section>
+
+    <section class="viz-card" id="s5">
+      <h2 id="h5"></h2>
+      <p id="p5"></p>
+      <div id="c5"></div>
+    </section>
+
+    <section class="viz-card" id="s6">
+      <h2 id="h6"></h2>
+      <p id="p6"></p>
+      <div id="c6"></div>
+    </section>
+  </main>
+  <div class="viz-tip" id="tip" role="status" hidden></div>
+
+  <script src="nav.js"></script>
+  <script src="csv.js"></script>
+  <script src="market-calc.js"></script>
+  <script src="market.js"></script>
+</body>
+</html>
