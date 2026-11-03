@@ -1,15 +1,15 @@
 {
-  "run_time": "2026-11-03T22:22:51Z",
+  "run_time": "2026-11-03T22:39:42Z",
   "first_run_date": "2026-10-29",
   "days_with_success": 6,
-  "open": 10203,
-  "new_today": 611,
-  "removed_today": 521,
+  "open": 14042,
+  "new_today": 613,
+  "removed_today": 524,
   "sources": [
     {
       "name": "wells_fargo",
       "ok": true,
-      "count": 1577
+      "count": 1580
     },
     {
       "name": "citi",
@@ -19,12 +19,12 @@
     {
       "name": "truist",
       "ok": true,
-      "count": 1455
+      "count": 1457
     },
     {
       "name": "capital_one",
       "ok": true,
-      "count": 2026
+      "count": 2025
     },
     {
       "name": "td",
@@ -34,7 +34,7 @@
     {
       "name": "santander",
       "ok": true,
-      "count": 973
+      "count": 974
     },
     {
       "name": "fidelity",
@@ -49,12 +49,57 @@
     {
       "name": "jll",
       "ok": true,
-      "count": 214
+      "count": 213
     },
     {
       "name": "att",
       "ok": true,
-      "count": 1137
+      "count": 1134
+    },
+    {
+      "name": "bofa",
+      "ok": true,
+      "count": 137
+    },
+    {
+      "name": "fifth_third",
+      "ok": true,
+      "count": 943
+    },
+    {
+      "name": "texas_capital",
+      "ok": true,
+      "count": 105
+    },
+    {
+      "name": "frost",
+      "ok": true,
+      "count": 186
+    },
+    {
+      "name": "raymond_james",
+      "ok": true,
+      "count": 293
+    },
+    {
+      "name": "jpmorgan",
+      "ok": true,
+      "count": 1033
+    },
+    {
+      "name": "gm_financial",
+      "ok": true,
+      "count": 122
+    },
+    {
+      "name": "kkr",
+      "ok": true,
+      "count": 140
+    },
+    {
+      "name": "goldman",
+      "ok": true,
+      "count": 879
     }
   ]
 }
