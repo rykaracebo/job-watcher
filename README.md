@@ -73,17 +73,30 @@ A posting is in role when its title matches an include pattern and no exclude
 pattern. Exclusions win.
 
 - **Include:** financial analyst, finance analyst, credit analyst, credit
-  underwriter, underwriting analyst, FP&A, risk analyst, portfolio analyst,
-  investment banking analyst, real estate finance, commercial / corporate / ABL
-  banking analyst, private equity or M&A analyst.
-- **Exclude:** senior, principal, director, VP / vice president, managing
-  director, head, lead, manager, and sales or client-facing titles (financial
-  advisor, financial representative, relationship manager, sales, business
-  development).
+  underwriter, underwriting analyst, FP&A (also "financial planning and
+  analysis"), risk analyst, portfolio analyst, investment banking analyst, real
+  estate finance, commercial / corporate / ABL banking analyst, private equity
+  or M&A analyst, and Credit Officer I.
+  - A finance function next to "analyst" counts in either order: "Valuation
+    Analyst", "Finance Reporting Analyst", "Analyst, Risk", "Analyst,
+    Alternative Investments". "Associate Analyst" counts only with a function.
+  - A full-time "Analyst Program" counts when its title names a finance
+    function (for example the Commercial Real Estate Full-Time Analyst Program).
+  - A plain "Associate" does not count in investment banking, private equity or
+    M&A, where it is a post-MBA title. Credit Officer II and above are left out
+    as too experienced for entry level.
+- **Exclude:** senior, principal, director, VP / vice president, AVP, managing
+  director, head, lead, manager; sales or client-facing titles (financial
+  advisor, financial representative, relationship manager, relationship,
+  relations, client, sales, business development); and internships (intern,
+  internship, summer, co-op).
 
 The rule lives in `pipeline/title_rule.py` and is covered by
-`tests/test_title_rule.py`. Every posting is kept in the history whether or not
-it is in role; `in_role` is just a column.
+`tests/test_title_rule.py`, which has a test for every title added or excluded
+and checks that no sales or client term gets through the word-order rule. Every
+posting is kept in the history whether or not it is in role; `in_role` is just
+a column, so a change to the rule applies to every day of history on the next
+build.
 
 ## Files
 
