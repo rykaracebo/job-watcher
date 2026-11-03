@@ -1,5 +1,6 @@
 // One navigation bar shared by every page. Add a page here and it appears everywhere.
 const PAGES = [
+  { href: "index.html", label: "Today" },
   { href: "browse.html", label: "Browse" },
 ];
 

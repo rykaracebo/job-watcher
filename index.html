@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Today · Job Watcher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Today</h1>
+    <p class="sub" id="asof">Loading…</p>
+
+    <section class="stats" id="stats" aria-label="Counts from the latest run"></section>
+
+    <h2>Sources</h2>
+    <p class="sub">Every source is requested once a day. A failed source writes no file that day and the run continues.</p>
+    <div class="table-wrap">
+      <table class="sources">
+        <thead><tr><th>Source</th><th>Status</th><th class="num">Postings</th></tr></thead>
+        <tbody id="sources"></tbody>
+      </table>
+    </div>
+
+    <div class="listhead">
+      <h2>Changes in the latest run</h2>
+      <div class="switch" id="roleSwitch">
+        <button data-role="1" class="on">In my role</button>
+        <button data-role="0">All postings</button>
+      </div>
+    </div>
+    <p class="sub" id="firstRunNote"></p>
+
+    <h3 id="newHead">New postings</h3>
+    <div id="newList"></div>
+    <button class="more" id="newMore" hidden>Show more</button>
+
+    <h3 id="removedHead">Removed postings</h3>
+    <div id="removedList"></div>
+    <button class="more" id="removedMore" hidden>Show more</button>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="csv.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
