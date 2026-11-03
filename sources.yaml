@@ -29,3 +29,10 @@ sources:
   - {name: gm_financial,  employer: GM Financial,    ats: oracle,     host: fa-exvu-saasfaprod1.fa.ocs.oraclecloud.com, site: CX_1}
   - {name: kkr,           employer: KKR,             ats: greenhouse, token: stage}
   - {name: goldman,       employer: Goldman Sachs,   ats: goldman}
+# Texas-only copies of four national boards. They overlap with the sources
+# above (same postings, same IDs) and exist to reveal Dallas postings that
+# the national list hides behind "N Locations". See README.
+  - {name: wells_fargo_tx, employer: Wells Fargo, ats: workday, host: wf.wd1,        tenant: wf,        site: WellsFargoJobs, state: Texas}
+  - {name: truist_tx,      employer: Truist,      ats: workday, host: truist.wd1,    tenant: truist,    site: Careers,        state: Texas}
+  - {name: fidelity_tx,    employer: Fidelity,    ats: workday, host: fmr.wd1,       tenant: fmr,       site: FidelityCareers, state: Texas}
+  - {name: santander_tx,   employer: Santander,   ats: workday, host: santander.wd3, tenant: santander, site: SantanderCareers, state: Texas}
