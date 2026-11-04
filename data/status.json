@@ -1,15 +1,15 @@
 {
-  "run_time": "2026-11-03T22:39:42Z",
+  "run_time": "2026-11-04T18:38:13Z",
   "first_run_date": "2026-10-29",
-  "days_with_success": 6,
-  "open": 14042,
-  "new_today": 613,
-  "removed_today": 524,
+  "days_with_success": 7,
+  "open": 14651,
+  "new_today": 567,
+  "removed_today": 455,
   "sources": [
     {
       "name": "wells_fargo",
       "ok": true,
-      "count": 1580
+      "count": 1610
     },
     {
       "name": "citi",
@@ -19,27 +19,27 @@
     {
       "name": "truist",
       "ok": true,
-      "count": 1457
+      "count": 1454
     },
     {
       "name": "capital_one",
       "ok": true,
-      "count": 2025
+      "count": 2033
     },
     {
       "name": "td",
       "ok": true,
-      "count": 1643
+      "count": 1702
     },
     {
       "name": "santander",
       "ok": true,
-      "count": 974
+      "count": 967
     },
     {
       "name": "fidelity",
       "ok": true,
-      "count": 809
+      "count": 837
     },
     {
       "name": "blackstone",
@@ -49,22 +49,22 @@
     {
       "name": "jll",
       "ok": true,
-      "count": 213
+      "count": 216
     },
     {
       "name": "att",
       "ok": true,
-      "count": 1134
+      "count": 1148
     },
     {
       "name": "bofa",
       "ok": true,
-      "count": 137
+      "count": 139
     },
     {
       "name": "fifth_third",
       "ok": true,
-      "count": 943
+      "count": 961
     },
     {
       "name": "texas_capital",
@@ -74,17 +74,17 @@
     {
       "name": "frost",
       "ok": true,
-      "count": 186
+      "count": 190
     },
     {
       "name": "raymond_james",
       "ok": true,
-      "count": 293
+      "count": 297
     },
     {
       "name": "jpmorgan",
       "ok": true,
-      "count": 1033
+      "count": 1040
     },
     {
       "name": "gm_financial",
@@ -94,12 +94,32 @@
     {
       "name": "kkr",
       "ok": true,
-      "count": 140
+      "count": 139
     },
     {
       "name": "goldman",
       "ok": true,
-      "count": 879
+      "count": 893
+    },
+    {
+      "name": "wells_fargo_tx",
+      "ok": true,
+      "count": 196
+    },
+    {
+      "name": "truist_tx",
+      "ok": true,
+      "count": 76
+    },
+    {
+      "name": "fidelity_tx",
+      "ok": true,
+      "count": 142
+    },
+    {
+      "name": "santander_tx",
+      "ok": true,
+      "count": 15
     }
   ]
 }
